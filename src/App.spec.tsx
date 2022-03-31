@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
 describe('app component', () => {
@@ -10,8 +10,8 @@ describe('app component', () => {
     expect(getByText('wigny')).toBeInTheDocument();
   });
 
-  it('should be able to add new item to the list', () => {
-    const { getByText, getByPlaceholderText } = render(<App />);
+  it('should be able to add new item to the list', async () => {
+    const { getByText, getByPlaceholderText, findByText } = render(<App />);
 
     const input = getByPlaceholderText('Novo item');
 
@@ -21,7 +21,11 @@ describe('app component', () => {
 
     fireEvent.click(button);
 
-    expect(getByText('Novo')).toBeInTheDocument();
+    await waitFor(async () => {
+      expect(getByText('Novo')).toBeInTheDocument();
+    })
+
+    // expect(await findByText('Novo')).toBeInTheDocument();
   })
 
 })

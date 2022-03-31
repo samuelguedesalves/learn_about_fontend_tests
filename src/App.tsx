@@ -5,7 +5,9 @@ function App() {
   const [list, setList] = useState(['gabriel', 'matheus', 'wigny']);
 
   function addToList() {
-    setList(state => [...state, newItem]);
+    setTimeout(() => {
+      setList(state => [...state, newItem]);
+    }, 500)
   }
 
   return (

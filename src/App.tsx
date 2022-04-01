@@ -10,6 +10,12 @@ function App() {
     }, 500)
   }
 
+  function removeToList(item: string) {
+    setTimeout(() => {
+      setList(state => state.filter(i => i !== item));
+    }, 500)
+  }
+
   return (
     <>
       <input
@@ -20,8 +26,14 @@ function App() {
       />
 
       <button onClick={addToList} >add</button>
+
       <ul>
-        {list.map(item => <li key={item}>{item}</li>)}
+        {list.map(item => (
+          <li key={item}>
+            {item}
+            <button onClick={() => removeToList(item)} >Remover</button>
+          </li>
+        ))}
       </ul>
     </>
   )

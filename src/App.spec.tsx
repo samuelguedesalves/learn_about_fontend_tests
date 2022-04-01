@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
 describe('app component', () => {
@@ -23,9 +23,19 @@ describe('app component', () => {
 
     await waitFor(async () => {
       expect(getByText('Novo')).toBeInTheDocument();
-    })
+    }, { timeout: 600 });
+  });
 
-    // expect(await findByText('Novo')).toBeInTheDocument();
-  })
+  it('should be able to add remove item to the list', async () => {
+    const { queryByText, getAllByText } = render(<App />);
+
+    const removeButtons = getAllByText('Remover');
+
+    fireEvent.click(removeButtons[0]);
+
+    await waitFor(() => {
+      expect(queryByText('gabriel')).not.toBeInTheDocument();
+    });
+  });
 
 })
